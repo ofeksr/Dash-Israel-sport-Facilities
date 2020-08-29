@@ -177,7 +177,7 @@ if __name__ == '__main__':
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-    server = app.server
+    # server = app.server
 
     df = pd.read_excel('datasets/sport_facilities.xlsx', encoding='UTF-8')
     cities = df['רשות מקומית'].unique()
