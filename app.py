@@ -1,7 +1,6 @@
 import re
 import sys
 
-import flask
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -177,8 +176,8 @@ def email_domain_of_workers():
 if __name__ == '__main__':
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-    server = flask.Flask(__name__)
-    app = dash.Dash(__name__, external_stylesheets=external_stylesheets, server=server)
+    app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+    server = app.server
 
     df = pd.read_excel('datasets/sport_facilities.xlsx', encoding='UTF-8')
     cities = df['רשות מקומית'].unique()
