@@ -12,6 +12,12 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
+
 def most_common_facility_type():
     # איזה סוג מגרש הוא הנפוץ ביותר ?
     df_copy = df
@@ -174,11 +180,6 @@ def email_domain_of_workers():
 
 
 if __name__ == '__main__':
-    external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-    app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-    server = app.server
-
     df = pd.read_excel('datasets/sport_facilities.xlsx', encoding='UTF-8')
     cities = df['רשות מקומית'].unique()
     facilities_per_city = df['רשות מקומית'].value_counts()
