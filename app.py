@@ -12,12 +12,6 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
-
-
 def most_common_facility_type():
     # איזה סוג מגרש הוא הנפוץ ביותר ?
     df_copy = df
@@ -179,71 +173,76 @@ def email_domain_of_workers():
     return fig
 
 
-if __name__ == '__main__':
-    df = pd.read_excel('datasets/sport_facilities.xlsx', encoding='UTF-8')
-    cities = df['רשות מקומית'].unique()
-    facilities_per_city = df['רשות מקומית'].value_counts()
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-    graphs = ['most_common_facility_type', 'fewest_good_facilities', 'established_vs_condition', 'lights_nor_fences',
-              'accessible_facilities_status', 'email_domain_of_workers']
-    opts = [{'label': i, 'value': i} for i in graphs]
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
-    fig = email_domain_of_workers()
+df = pd.read_excel('datasets/sport_facilities.xlsx', encoding='UTF-8')
+cities = df['רשות מקומית'].unique()
+facilities_per_city = df['רשות מקומית'].value_counts()
 
-    app.layout = html.Div(children=[
-        html.H1(children='Sport Facilities Stats in Israel'),
+graphs = ['most_common_facility_type', 'fewest_good_facilities', 'established_vs_condition', 'lights_nor_fences',
+          'accessible_facilities_status', 'email_domain_of_workers']
+opts = [{'label': i, 'value': i} for i in graphs]
 
-        html.Div(children='''
-                        built with Dash: A web application framework for Python.
-                    '''),
+fig = email_domain_of_workers()
 
-        html.Br(),
+app.layout = html.Div(children=[
+    html.H1(children='Sport Facilities Stats in Israel'),
 
-        html.P("""
-        בתור אחד שמשחק כדורסל במגרשים העירוניים,
+    html.Div(children='''
+                    built with Dash: A web application framework for Python.
+                '''),
+
+    html.Br(),
+
+    html.P("""
+    בתור אחד שמשחק כדורסל במגרשים העירוניים,
+""",
+           dir='rtl'),
+    html.P("""
+        עניין אותי לדעת איפה עומדת העיר שלי ביחס לערים האחרות מבחינת היצע מגרשים תקניים.
  """,
-               dir='rtl'),
-        html.P("""
-            עניין אותי לדעת איפה עומדת העיר שלי ביחס לערים האחרות מבחינת היצע מגרשים תקניים.
+           dir='rtl'),
+    html.P("""
+            שמתי את ידיי על מאגר נתונים של משרד התרבות והספורט (data.gov.il) ויצאתי אל הדרך.
      """,
-               dir='rtl'),
-        html.P("""
-                שמתי את ידיי על מאגר נתונים של משרד התרבות והספורט (data.gov.il) ויצאתי אל הדרך.
+           dir='rtl'),
+    html.P("""
+                השתמשתי ב-Pandas לניתוח הנתונים והכרתי את Dash by Plotly שעזר לי לבנות ממשק WEB עם הגרפים שבניתי.
          """,
-               dir='rtl'),
-        html.P("""
-                    השתמשתי ב-Pandas לניתוח הנתונים והכרתי את Dash by Plotly שעזר לי לבנות ממשק WEB עם הגרפים שבניתי.
-             """,
-               dir='rtl'),
-        html.P('''
-        קוד הפרויקט זמין כאן: www.github.com/ofeksr
-        ''',
-               dir='rtl',
-               ),
+           dir='rtl'),
+    html.P('''
+    קוד הפרויקט זמין כאן: www.github.com/ofeksr
+    ''',
+           dir='rtl',
+           ),
 
-        html.Br(),
+    html.Br(),
 
-        html.P([
-            html.Label("Choose a graph"),
-            dcc.Dropdown(id='opt', options=opts,
-                         value=graphs[0])
-        ], style={'width': '400px',
-                  'fontSize': '20px',
-                  'padding-left': '100px',
-                  'display': 'inline-block'}),
+    html.P([
+        html.Label("Choose a graph"),
+        dcc.Dropdown(id='opt', options=opts,
+                     value=graphs[0])
+    ], style={'width': '400px',
+              'fontSize': '20px',
+              'padding-left': '100px',
+              'display': 'inline-block'}),
 
-        dcc.Graph(
-            id='main',
-            figure=fig
-        ),
+    dcc.Graph(
+        id='main',
+        figure=fig
+    ),
 
-    ])
+])
 
 
-    @app.callback(Output('main', 'figure'),
-                  [Input('opt', 'value')])
-    def update_figure(input1):
-        return getattr(sys.modules[__name__], input1)()
+@app.callback(Output('main', 'figure'),
+              [Input('opt', 'value')])
+def update_figure(input1):
+    return getattr(sys.modules[__name__], input1)()
 
 
+if __name__ == '__main__':
     app.run_server(debug=True)
