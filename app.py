@@ -210,9 +210,11 @@ app.layout = html.Div(children=[
     קוד הפרויקט זמין כאן: https://github.com/ofeksr/Dash-Israel-sport-Facilities
     מאגר הנתונים נלקח מאתר מאגר המידע המששלתיים: https://data.gov.il/
     ''',
-           dir='rtl',
-           ),
-
+           dir='rtl'),
+    html.P('''
+    מאגר הנתונים נלקח מאתר מאגר המידע המששלתיים: https://data.gov.il/
+    ''',
+           dir='rtl'),
     html.Br(),
 
     html.P([
