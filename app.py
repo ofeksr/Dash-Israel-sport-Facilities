@@ -193,6 +193,7 @@ app.layout = html.Div(children=[
 
     html.Div(children='''
                     built with Dash: A web application framework for Python.
+                    data analysis made with Pandas.
                 '''),
 
     html.Br(),
@@ -205,16 +206,9 @@ app.layout = html.Div(children=[
         עניין אותי לדעת איפה עומדת העיר שלי ביחס לערים האחרות מבחינת היצע מגרשים תקניים.
  """,
            dir='rtl'),
-    html.P("""
-            שמתי את ידיי על מאגר נתונים של משרד התרבות והספורט (data.gov.il) ויצאתי אל הדרך.
-     """,
-           dir='rtl'),
-    html.P("""
-                השתמשתי ב-Pandas לניתוח הנתונים והכרתי את Dash by Plotly שעזר לי לבנות ממשק WEB עם הגרפים שבניתי.
-         """,
-           dir='rtl'),
     html.P('''
-    קוד הפרויקט זמין כאן: www.github.com/ofeksr
+    קוד הפרויקט זמין כאן: https://github.com/ofeksr/Dash-Israel-sport-Facilities
+    מאגר הנתונים נלקח מאתר מאגר המידע המששלתיים: https://data.gov.il/
     ''',
            dir='rtl',
            ),
