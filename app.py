@@ -164,7 +164,8 @@ def accessible_facilities_status():
 def email_domain_of_workers():
     # מהו דומיין האינטרנט הנפוץ ביותר בקרב מפעילי המתקנים
     email_domains = df['דואל איש קשר'].apply(
-        lambda e: re.findall("@\w*([\.\w*]*)", str(e))).value_counts().iloc[1:]
+        lambda e: re.findall("@\w*([\.\w*]*)", str(e)))
+    email_domains = email_domains.value_counts().iloc[1:]
 
     fig = px.pie(email_domains, values=email_domains.values, names=email_domains.index)
     fig.update_traces(textposition='inside', textinfo='percent+label')
@@ -193,27 +194,33 @@ app.layout = html.Div(children=[
 
     html.Div(children='''
                     built with Dash: A web application framework for Python.
-                    data analysis made with Pandas.
                 '''),
 
     html.Br(),
 
     html.P("""
-    בתור אחד שמשחק כדורסל במגרשים העירוניים,
-""",
+        בתור אחד שמשחק כדורסל במגרשים העירוניים,
+    """,
            dir='rtl'),
     html.P("""
-        עניין אותי לדעת איפה עומדת העיר שלי ביחס לערים האחרות מבחינת היצע מגרשים תקניים.
- """,
+            עניין אותי לדעת איפה עומדת העיר שלי ביחס לערים האחרות מבחינת היצע מגרשים תקניים.
+     """,
+           dir='rtl'),
+
+    html.Br(),
+    html.P('''
+        קוד הפרויקט זמין כאן: 
+        ''',
+           dir='rtl'),
+    html.P(html.A('github/ofeksr/Dash-Israel-sport-Facilities',
+                  href='https://github.com/ofeksr/Dash-Israel-sport-Facilities'),
            dir='rtl'),
     html.P('''
-    קוד הפרויקט זמין כאן: https://github.com/ofeksr/Dash-Israel-sport-Facilities
-    מאגר הנתונים נלקח מאתר מאגר המידע המששלתיים: https://data.gov.il/
-    ''',
+        מאגר הנתונים נלקח מאתר מאגרי המידע המששלתיים:
+        ''',
            dir='rtl'),
-    html.P('''
-    מאגר הנתונים נלקח מאתר מאגר המידע המששלתיים: https://data.gov.il/
-    ''',
+    html.P(html.A('data.gov.il',
+                  href='https://data.gov.il/'),
            dir='rtl'),
     html.Br(),
 
@@ -241,4 +248,5 @@ def update_figure(input1):
 
 
 if __name__ == '__main__':
+    email_domain_of_workers()
     app.run_server(debug=True)
