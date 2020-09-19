@@ -216,7 +216,7 @@ app.layout = html.Div(children=[
                   href='https://github.com/ofeksr/Dash-Israel-sport-Facilities'),
            dir='rtl'),
     html.P('''
-        מאגר הנתונים נלקח מאתר מאגרי המידע המששלתיים:
+        מאגר הנתונים נלקח מאתר מאגרי המידע הממשלתיים:
         ''',
            dir='rtl'),
     html.P(html.A('data.gov.il',
